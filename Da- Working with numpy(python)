@@ -1,0 +1,145 @@
+1. Creating a 3x3 Identity Matrix with Float Data Type
+python
+Copy code
+import numpy as np
+identity_matrix = np.eye(3, dtype=float)
+
+2. Create a 1D Array with Random Values Between 0 and 1
+python
+Copy code
+random_array = np.random.rand(10)  # Example with 10 random values
+
+3. Create a 2D Array with Random Integer Values
+python
+Copy code
+random_2d_array = np.random.randint(0, 100, size=(3, 3))  # 3x3 array with integers between 0 and 100
+
+4. Creating an Array Using a Custom Function
+python
+Copy code
+custom_array = np.fromfunction(lambda i, j: i + j, (3, 3), dtype=int)
+
+5. Reshaping a 1D Array into a 2D Array
+python
+Copy code
+array_1d = np.arange(12)
+array_2d = array_1d.reshape(3, 4)  # Reshape into 3x4
+
+6. Creating a 3x3 Array of Ones
+python
+Copy code
+ones_array = np.ones((3, 3))
+
+7. Common Items Between Two NumPy Arrays
+python
+Copy code
+a = np.array([1, 2, 3, 2, 3, 4, 3, 4, 5, 6])
+b = np.array([7, 2, 10, 2, 7, 4, 9, 4, 9, 8])
+common_items = np.intersect1d(a, b)  # Output: array([2, 4])
+
+8. Remove Items in a Present in b
+python
+Copy code
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([5, 6, 7, 8, 9])
+filtered_a = np.setdiff1d(a, b)  # Output: array([1, 2, 3, 4])
+
+9. Limit Printed Items in NumPy Array
+python
+Copy code
+a = np.arange(15)
+np.set_printoptions(threshold=6)
+print(a)  # Output: array([ 0, 1, 2, ..., 12, 13, 14])
+
+10. Drop NaN Values from a 1D Array
+python
+Copy code
+array = np.array([1, 2, 3, np.nan, 5, 6, 7, np.nan])
+cleaned_array = array[~np.isnan(array)]  # Output: array([1., 2., 3., 5., 6., 7.])
+
+11. Create Arrays of Natural Numbers
+python
+Copy code
+array_1d = np.arange(1, 21)  # First 20 natural numbers
+array_2d = array_1d.reshape(4, 5)  # Shape (4, 5)
+
+12. Analyze and Change 3D Array Properties
+python
+Copy code
+array_3d = np.random.randint(0, 10, (2, 3, 4))
+shape = array_3d.shape  # (2, 3, 4)
+size = array_3d.size  # 24
+ndim = array_3d.ndim  # 3
+dtype = array_3d.dtype  # Example: int32
+array_float64 = array_3d.astype(np.float64)  # Change type to float64
+
+13. Reshape and Flatten an Array
+python
+Copy code
+array_1d = np.arange(12)
+array_2d = array_1d.reshape(3, 4)
+flattened_array = array_2d.ravel()  # Flattens back to original 1D array
+
+14. Element-Wise Operations
+python
+Copy code
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+add = a + b
+subtract = a - b
+multiply = a * b
+divide = a / b  # Division by zero returns `inf` or raises warnings
+
+15. Broadcasting Example
+python
+Copy code
+a_2d = np.array([[1], [2], [3]])  # Shape (3, 1)
+b_1d = np.array([4, 5, 6])  # Shape (1, 3)
+result = a_2d + b_1d  # Broadcasting aligns dimensions
+
+16. Modify Elements Greater Than 5
+python
+Copy code
+array = np.random.randint(0, 10, (3, 3))
+mask = array > 5
+array[mask] = 5  # Replace elements > 5 with 5
+
+17. Indexing and Slicing
+python
+Copy code
+array = np.random.randint(0, 10, (4, 4))
+second_row = array[1]
+last_column = array[:, -1]
+subarray = array[:2, :2]  # First 2 rows and columns
+
+18. Practical NumPy in EDA, AI, ML, DL
+EDA: Compute statistics with np.mean and np.std.
+AI/ML/DL: Preprocess data, normalize inputs with np.linalg.norm.
+
+19. Compute Eigenvalues and Eigenvectors
+python
+Copy code
+matrix = np.random.rand(4, 4)
+eigvals, eigvecs = np.linalg.eig(matrix)
+
+20. Reshape and Compare Arrays
+python
+Copy code
+array = np.arange(27)
+array_3d = array.reshape(3, 3, 3)
+flattened = array_3d.ravel()
+
+21. Matrix Multiplication
+python
+Copy code
+a = np.random.rand(100, 200)
+b = np.random.rand(200, 100)
+dot_result = np.dot(a, b)
+at_result = a @ b
+
+22. Broadcasting Example
+python
+Copy code
+array_3d = np.random.rand(2, 1, 4)
+array_2d = np.random.rand(4, 1)
+result = array_3d + array_2d
