@@ -1,0 +1,73 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+url = "https://github.com/TopsCode/Data_Analysis_2024/raw/main/ALL_CSV/historical_automobile_sales.csv"
+data = pd.read_csv(url)
+
+# Convert Date column to datetime
+data['Date'] = pd.to_datetime(data['Date'])
+
+# Group data by year and calculate total sales
+data['Year'] = data['Date'].dt.year
+yearly_sales = data.groupby('Year')['Automobile_Sales'].sum()
+
+# Plot the line chart
+plt.figure(figsize=(10, 6))
+plt.plot(yearly_sales.index, yearly_sales.values, marker='o', linestyle='-', color='blue')
+plt.title('Yearly Automobile Sales Trend')
+plt.xlabel('Year')
+plt.ylabel('Total Automobile Sales')
+plt.grid(True)
+plt.show()
+# Group data by Year, Recession, and Vehicle_Type
+vehicle_sales = data.groupby(['Year', 'Recession', 'Vehicle_Type'])['Automobile_Sales'].sum().unstack()
+
+# Plot the trend for each Vehicle_Type
+vehicle_sales.plot(figsize=(12, 8))
+plt.title('Sales Trends for Different Vehicle Types')
+plt.xlabel('Year')
+plt.ylabel('Automobile Sales')
+plt.legend(title='Vehicle Type')
+plt.grid(True)
+plt.show()
+import seaborn as sns
+
+# Group data by Recession and Vehicle_Type for average sales
+recession_sales = data.groupby(['Recession', 'Vehicle_Type'])['Automobile_Sales'].mean().reset_index()
+
+# Plot the comparison using a bar chart
+plt.figure(figsize=(10, 6))
+sns.barplot(data=recession_sales, x='Vehicle_Type', y='Automobile_Sales', hue='Recession')
+plt.title('Average Automobile Sales During Recession vs Non-Recession')
+plt.xlabel('Vehicle Type')
+plt.ylabel('Average Automobile Sales')
+plt.legend(title='Recession (0=No, 1=Yes)')
+plt.show()
+# Group data by Recession and Vehicle_Type for total sales
+vehicle_recession_comparison = data.groupby(['Recession', 'Vehicle_Type'])['Automobile_Sales'].sum().unstack()
+
+# Plot the comparison
+vehicle_recession_comparison.plot(kind='bar', figsize=(12, 8))
+plt.title('Sales Comparison During Recession vs Non-Recession')
+plt.xlabel('Recession (0=No, 1=Yes)')
+plt.ylabel('Total Automobile Sales')
+plt.legend(title='Vehicle Type')
+plt.grid(axis='y')
+plt.show()
+Analysis
+Yearly Sales Trend (Q1):
+
+The line chart shows fluctuations in sales volume across years.
+Peaks and drops highlight potential factors like economic downturns or market growth.
+Vehicle Type Trends (Q2):
+
+Different vehicle types may show varying sales patterns during recession periods.
+For example, smaller or economic vehicles might sell better than luxury cars during recessions.
+Recession vs. Non-Recession Comparison (Q3):
+
+The Seaborn bar chart highlights the impact of recession on average sales per vehicle type.
+Typically, overall sales drop during recession periods.
+Recession vs. Non-Recession Vehicle Sales (Q4):
+
+Bar charts provide a clear comparison of total sales for each vehicle type across recession and non-recession periods.
