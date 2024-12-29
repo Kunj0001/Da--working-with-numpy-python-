@@ -1,0 +1,55 @@
+import pandas as pd
+
+# Read the CSV file into a DataFrame
+banks = pd.read_csv('https://github.com/TopsCode/Data_Analysis_2024/raw/main/ALL_CSV/banklist.csv')
+# Show the head of the DataFrame
+print(banks.head())
+# Get the column names
+print(banks.columns)
+# Count the number of unique states
+num_states = banks['ST'].nunique()
+print(f'Number of unique states: {num_states}')
+# Get a list of all unique states
+states_list = banks['ST'].unique()
+print(f'List of states: {states_list}')
+# Find the top 5 states with the most failed banks
+top_states = banks['ST'].value_counts().head(5)
+print('Top 5 states with the most failed banks:')
+print(top_states)
+# Find the top 5 acquiring institutions
+top_acquirers = banks['Acquiring Institution'].value_counts().head(5)
+print('Top 5 acquiring institutions:')
+print(top_acquirers)
+# Filter for banks acquired by State Bank of Texas
+sbt_acquisitions = banks[banks['Acquiring Institution'] == 'State Bank of Texas']
+num_acquired = sbt_acquisitions.shape[0]
+
+# Count how many of these banks were in Texas (ST == 'TX')
+num_in_texas = sbt_acquisitions[sbt_acquisitions['ST'] == 'TX'].shape[0]
+
+print(f'State Bank of Texas acquired {num_acquired} banks.')
+print(f'Number of these banks located in Texas: {num_in_texas}')
+# Filter for banks in California (ST == 'CA')
+ca_banks = banks[banks['ST'] == 'CA']
+
+# Find the most common city for bank failures in California
+common_city = ca_banks['City'].value_counts().idxmax()
+print(f'The most common city in California for bank failures: {common_city}')
+import matplotlib.pyplot as plt
+
+# Plot the top 5 states with the most failed banks
+top_states.plot(kind='bar', figsize=(10, 6), color='skyblue')
+plt.title('Top 5 States with the Most Failed Banks')
+plt.xlabel('State')
+plt.ylabel('Number of Failed Banks')
+plt.xticks(rotation=0)
+plt.show()
+Explanation:
+
+Title: Clearly indicates that the bar graph represents the top 5 states with the highest number of failed banks.
+X-axis (State): Displays the state abbreviations.
+Y-axis (Number of Failed Banks): Shows the count of failed banks in each state.
+Bars: The height of each bar corresponds to the number of failed banks in that state. Taller bars represent states with more failed banks.
+Color: The bars are colored 'skyblue' for visual appeal.
+Rotation: The state labels on the x-axis are set to horizontal for better readability.
+This bar graph provides a visual representation, making it easier to compare the number of failed banks across the top 5 states.
